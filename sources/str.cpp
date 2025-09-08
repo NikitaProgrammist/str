@@ -7,121 +7,110 @@
 
 #include "str.h"
 
-int myPuts(const char * s) { // TODO rename s, i
-  if (s == NULL) {
+int myPuts(const char * string) {
+  if (string == NULL) {
     return EOF;
   }
 
-  size_t i = 0;
-  while (s[i] != '\0') {
-    putchar(s[i]); // TODO i++ here
-    i++; // TODO remove
+  size_t index = 0;
+  while (string[index] != '\0') {
+    putchar(string[index++]);
   }
   putchar('\n');
   return 0;
 }
 
-// TODO const char *
-char * myStrchr(const char * s, const int c) { // TODO rename s, c, i
-  size_t i = 0;
-  while (s[i] != '\0') {
-    if (c == s[i]) {
-      return &s[i]; // TODO explicit cast to char *, &s[i] ----> s + i
+char * myStrchr(const char * string, const int symbol) {
+  size_t index = 0;
+  while (string[index++] != '\0') {
+    if (symbol == string[index]) {
+      return (char *) (string + index);
     }
-    i++;
   }
   return NULL;
 }
 
-size_t myStrlen(const char * s) {
-  size_t i = 0;
-  while (s[i] != '\0') { // TODO: *(s + i++), ++i
-    i++;
-  }
-  return i;
+size_t myStrlen(const char * string) {
+  size_t index = 0;
+  while (string[index++] != '\0');
+  return index - 1;
 }
 
-char * myStrcpy(char * dest, const char * src) { // TODO rename i
-  size_t i = 0;
-  while ((dest[i] = src[i]) != '\0') {
-    i++;
+char * myStrcpy(char * dest, const char * src) {
+  size_t index = 0;
+  while ((dest[index] = src[index]) != '\0') {
+    index++;
   }
   return dest;
 }
 
 char * myStrncpy(char * dest, const char * src, size_t n) {
-  size_t i = 0;
+  size_t index = 0;
 
-  while (i < n && (dest[i] = src[i]) != '\0') {
-    i++;
+  while (index < n && (dest[index] = src[index]) != '\0') {
+    index++;
   }
 
-  while (i < n) {
-    dest[i] = '\0';
-    i++;
-  }
+  while (index < n) dest[index++] = '\0';
 
   return dest;
 }
 
 char * myStrcat(char * dest, const char * src) {
-  size_t i = 0, j = 0;
+  size_t dest_index = 0, src_index = 0;
 
-  while (dest[i] != '\0') {
-    i++;
+  while (dest[dest_index] != '\0') {
+    dest_index++;
   }
 
-  while ((dest[i] = src[j]) != '\0') {
-    i++;
-    j++;
-  }
+  while ((dest[dest_index++] = src[src_index++]) != '\0');
 
   return dest;
 }
 
 char * myStrncat(char * dest, const char * src, size_t n) {
-  size_t i = 0, j = 0;
+  size_t dest_index = 0, src_index = 0;
 
-  while (dest[i] != '\0') {
-    i++;
+  while (dest[dest_index] != '\0') {
+    dest_index++;
   }
 
-  while (j < n && (dest[i] = src[j]) != '\0') {
-    i++;
-    j++;
+  while (src_index < n && (dest[dest_index] = src[src_index]) != '\0') {
+    dest_index++;
+    src_index++;
   }
 
-  if (j == n) {
-    dest[i] = '\0';
+  if (src_index == n) {
+    dest[dest_index] = '\0';
   }
 
   return dest;
 }
 
-char * myFgets(char * s, int size, FILE * stream) {
-  int i = 0;
+char * myFgets(char * string, int size, FILE * stream) {
+  int index = 0;
 
-  while (i < size - 1) {
-    s[i] = (char) getc(stream);
-    if (s[i] == '\n' || s[i] == EOF) {
-      i++;
+  while (index < size - 1) {
+    string[index] = (char) getc(stream);
+    if (string[index] == '\n' || string[index] == EOF) {
+      index++;
       break;
     }
-    i++;
+    index++;
   }
-  s[i] = '\0';
+  string[index] = '\0';
 
-  return s;
+  return string;
 }
 
-char * myStrdup(const char * s) {
-  char * ds = (char *) malloc((myStrlen(s) + 1) * sizeof(char));
+char * myStrdup(const char * string) {
+  char * dstring = (char *) malloc((myStrlen(string) + 1) * sizeof(char));
 
-  if (ds != NULL) {
-    myStrcpy(ds, s);
+  if (dstring != NULL) {
+    myStrcpy(dstring, string);
   }
 
-  return ds;
+  return dstring;
 }
 
 size_t myGetline(char ** lineptr, size_t * n, FILE * stream) {
@@ -129,32 +118,31 @@ size_t myGetline(char ** lineptr, size_t * n, FILE * stream) {
     *lineptr = (char *) malloc(*n * sizeof(char));
   }
 
-  size_t i = 0;
-  char c = 0;
+  size_t index = 0;
+  char symbol = 0;
 
-  while (i < *n && (c = (char) getc(stream)) != '\n' && c != EOF) {
-    (*lineptr)[i] = c;
-    i++;
+  while (index < *n && (symbol = (char) getc(stream)) != '\n' && symbol != EOF) {
+    (*lineptr)[index] = symbol;
+    index++;
   }
 
-  if (i == *n) {
-    while ((c = (char) getc(stream)) != '\n' && c != EOF) {
+  if (index == *n) {
+    while ((symbol = (char) getc(stream)) != '\n' && symbol != EOF) {
       *n += 1;
       *lineptr = (char *) realloc(*lineptr, *n * sizeof(char));
-      (*lineptr)[i] = c;
-      i++;
+      (*lineptr)[index++] = symbol;
     }
   }
 
-  if (i < *n - 1) {
-    (*lineptr)[i++] = '\n';
-    (*lineptr)[i] = '\0';
+  if (index < *n - 1) {
+    (*lineptr)[index++] = '\n';
+    (*lineptr)[index] = '\0';
   }
   else {
     *n += 2;
     *lineptr = (char *) realloc(*lineptr, *n * sizeof(char));
-    (*lineptr)[i++] = '\n';
-    (*lineptr)[i] = '\0';
+    (*lineptr)[index++] = '\n';
+    (*lineptr)[index] = '\0';
   }
 
   return *n - 1;
@@ -165,20 +153,20 @@ char * myStrstr(char * const haystack, char * const needle) {
     return haystack;
   }
 
-  size_t i = 0;
+  size_t index = 0;
 
-  while (haystack[i] != '\0') {
-    size_t j = 0;
+  while (haystack[index] != '\0') {
+    size_t subindex = 0;
 
-    while (haystack[i + j] != '\0' && needle[j] != '\0' && haystack[i + j] == needle[j]) {
-      j++;
+    while (haystack[index + subindex] != '\0' && needle[subindex] != '\0' && haystack[index + subindex] == needle[subindex]) {
+      subindex++;
     }
 
-    if (needle[j] == '\0') {
-      return haystack + i;
+    if (needle[subindex] == '\0') {
+      return haystack + index;
     }
 
-    i++;
+    index++;
   }
 
   return NULL;
@@ -189,33 +177,33 @@ char * myStrstrRK(char * const haystack, char * const needle) {
     return haystack;
   }
 
-  long long q = 1 << 31;
-  q--;
+  long long prime = 1 << 31;
+  prime--;
 
-  size_t m = myStrlen(needle);
-  long long x = random(256);
-  long long k = myPow(x, q, m - 1);
-  long long hash_haystack = strHash(haystack, x, q, m);
-  long long hash_needle = strHash(needle, x, q, m);
+  size_t len_substring = myStrlen(needle);
+  long long randomnum = random(256);
+  long long coeff = myPow(randomnum, prime, len_substring - 1);
+  long long hash_haystack = strHash(haystack, randomnum, prime, len_substring);
+  long long hash_needle = strHash(needle, randomnum, prime, len_substring);
 
-  size_t i = 0;
-  while (haystack[i + m] != '\0') {
+  size_t index = 0;
+  while (haystack[index + len_substring] != '\0') {
     if (hash_haystack == hash_needle) {
 
-      size_t j = 0;
-      while (j < m) {
-        if (haystack[i + j] != needle[j]) {
+      size_t subindex = 0;
+      while (subindex < len_substring) {
+        if (haystack[index + subindex] != needle[subindex]) {
           break;
         }
-        j++;
+        subindex++;
       }
 
-      if (needle[j] == '\0') {
-        return haystack + i;
+      if (needle[subindex] == '\0') {
+        return haystack + index;
       }
     }
-    i++;
-    hash_haystack = ((hash_haystack - (haystack[i - 1] * k) % q) * x + haystack[i + m - 1]) % q;
+    index++;
+    hash_haystack = ((hash_haystack - (haystack[index - 1] * coeff) % prime) * randomnum + haystack[index + len_substring - 1]) % prime;
   }
 
   return NULL;
@@ -226,59 +214,59 @@ char * myStrstrBMH(char * const haystack, char * const needle) {
     return haystack;
   }
 
-  size_t m = myStrlen(needle);
+  size_t len_substring = myStrlen(needle);
   const int LEN_ALPHABET = 256;
   size_t symbols[LEN_ALPHABET] = {};
 
-  for (size_t i = 0; i < LEN_ALPHABET; i++) {
-    symbols[i] = m;
+  for (size_t index = 0; index < LEN_ALPHABET; index++) {
+    symbols[index] = len_substring;
   }
 
-  for (size_t i = 0; i < m - 1; i++) {
-    if (symbols[(size_t) needle[i]] == m) {
-      symbols[(size_t) needle[i]] = m - i - 1;
+  for (size_t index = 0; index < len_substring - 1; index++) {
+    if (symbols[(size_t) needle[index]] == len_substring) {
+      symbols[(size_t) needle[index]] = len_substring - index - 1;
     }
   }
 
-  size_t i = 0;
+  size_t index = 0;
 
-  while (haystack[i + m - 1] != '\0') {
-    size_t j = m;
+  while (haystack[index + len_substring - 1] != '\0') {
+    size_t subindex = len_substring;
 
-    while (j > 0 && haystack[i + j - 1] == needle[j - 1]) {
-      j--;
+    while (subindex > 0 && haystack[index + subindex - 1] == needle[subindex - 1]) {
+      subindex--;
     }
 
-    if (j == 0) {
-      return haystack + i;
+    if (subindex == 0) {
+      return haystack + index;
     }
 
-    i += symbols[(size_t) haystack[i + j - 1]];
+    index += symbols[(size_t) haystack[index + subindex - 1]];
   }
 
   return NULL;
 }
 
-long long random(long long q) { // TODO rename q
-  srand(time(NULL)); // TODO add explicit cast, abs() or %
-  return rand() % (q - 2) + 2;
+long long random(long long prime) {
+  srand(0);
+  return rand() % (prime - 2) + 2;
 }
 
-long long myPow(long long x, long long q, size_t m) {
-  long long r = 1;
-  for (size_t i = 0; i < m; i++) {
-    r = (r * x) % q;
+long long myPow(long long randomnum, long long prime, size_t len_substring) {
+  long long result = 1;
+  for (size_t index = 0; index < len_substring; index++) {
+    result = (result * randomnum) % prime;
   }
-  return r;
+  return result;
 }
 
-long long strHash(char * const str, long long x, long long q, size_t len) {
-  size_t i = 0;
+long long strHash(char * const str, long long randomnum, long long prime, size_t len) {
+  size_t index = 0;
   long long hash = 0;
-  while (i < len - 1) {
-    hash += str[i] * myPow(x, q, len - i - 1);
-    i++;
+  while (index < len - 1) {
+    hash += str[index] * myPow(randomnum, prime, len - index - 1);
+    index++;
   }
-  hash = (hash + str[i]) % q;
+  hash = (hash + str[index]) % prime;
   return hash;
 }

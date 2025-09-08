@@ -3,21 +3,21 @@
 #ifndef STR_H
 #define STR_H
 
-int myPuts(const char * s);
-char * myStrchr(char * const s, const int c);
-size_t myStrlen(const char * s);
+int myPuts(const char * string);
+char * myStrchr(const char * string, const int symbol);
+size_t myStrlen(const char * string);
 char * myStrcpy(char * dest, const char * src);
 char * myStrncpy(char * dest, const char * src, size_t n);
 char * myStrcat(char * dest, const char * src);
 char * myStrncat(char * dest, const char * src, size_t n);
-char * myFgets(char * s, int size, FILE * stream);
-char * myStrdup(const char * s);
+char * myFgets(char * string, int size, FILE * stream);
+char * myStrdup(const char * string);
 size_t myGetline(char ** lineptr, size_t * n, FILE * stream);
 char * myStrstr(char * const haystack, char * const needle);
 char * myStrstrRK(char * const haystack, char * const needle);
 char * myStrstrBMH(char * const haystack, char * const needle);
-long long random(long long q);
-long long myPow(long long x, long long q, size_t m);
-long long strHash(char * const str, long long x, long long q, size_t len);
+long long random(long long prime);
+long long myPow(long long randomnum, long long prime, size_t len_substring);
+long long strHash(char * const str, long long randomnum, long long prime, size_t len);
 
 #endif

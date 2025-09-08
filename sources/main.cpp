@@ -38,7 +38,7 @@ int main() { // TODO split to unit test (use google test if you will have enough
   char * line2 = NULL;
   size_t s1 = 0, s2 = 0;
   size_t n1 = myGetline(&line1, &s1, stdin);
-  size_t n2 = getline(&line2, &s2, stdin); // TODO use ssize_t
+  size_t n2 = (size_t) getline(&line2, &s2, stdin);
   myPuts(line1);
   myPuts(line2);
   printf("%zu %zu\n", n1, n2);
