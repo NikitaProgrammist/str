@@ -30,6 +30,23 @@ char * myStrchr(const char * string, const int symbol) {
   return NULL;
 }
 
+int myAtoi(char * string) {
+  size_t index = 0;
+  int num = 0;
+  int sign = 0;
+
+  if (string[index] <= '0' || string[index] >= '9') {
+    sign = (string[index] == '-' ? -1 : 1);
+    index++;
+  }
+
+  while (string[index] != '\0' && string[index] >= '0' && string[index] <= '9') {
+    num = 10 * num + string[index++] - '0';
+  }
+
+  return num * sign;
+}
+
 size_t myStrlen(const char * string) {
   size_t index = 0;
   while (string[index++] != '\0');

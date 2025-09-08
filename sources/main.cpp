@@ -14,9 +14,11 @@ int main() { // TODO split to unit test (use google test if you will have enough
   char str6[150] = "";
   char str7[] = "fdgsdfhgdfhgfsg";
   char str8[] = "hgfs";
+  char str9[] = "-132123";
   myPuts(str);
   puts(str);
   printf("%p %p\n", myStrchr(str, 's'), strchr(str, 's'));
+  printf("%d %d\n", myAtoi(str9), atoi(str9));
   printf("%zu %zu\n", myStrlen(str), strlen(str));
   myPuts(myStrcpy(str2, str));
   myPuts(strcpy(str3, str));

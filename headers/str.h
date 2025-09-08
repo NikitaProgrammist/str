@@ -5,6 +5,7 @@
 
 int myPuts(const char * string);
 char * myStrchr(const char * string, const int symbol);
+int myAtoi(char * string);
 size_t myStrlen(const char * string);
 char * myStrcpy(char * dest, const char * src);
 char * myStrncpy(char * dest, const char * src, size_t n);
