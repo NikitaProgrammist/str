@@ -20,5 +20,6 @@ char * myStrstrBMH(char * const haystack, char * const needle);
 long long random(long long prime);
 long long myPow(long long randomnum, long long prime, size_t len_substring);
 long long strHash(char * const str, long long randomnum, long long prime, size_t len);
+char * myStrtok(char * str, const char * delim);
 
 #endif

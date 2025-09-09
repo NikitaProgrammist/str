@@ -15,6 +15,8 @@ int main() { // TODO split to unit test (use google test if you will have enough
   char str7[] = "fdgsdfhgdfhgfsg";
   char str8[] = "hgfs";
   char str9[] = "-132123";
+  char str10[] = "dfgfgd, fgdfgdfg, fgdfg";
+  char str11[] = "dfgfgd, fgdfgdfg, fgdfg";
   myPuts(str);
   puts(str);
   printf("%p %p\n", myStrchr(str, 's'), strchr(str, 's'));
@@ -47,5 +49,9 @@ int main() { // TODO split to unit test (use google test if you will have enough
   free(line1);
   free(line2);
   printf("%p %p %p %p\n", strstr(str7, str8), myStrstr(str7, str8), myStrstrRK(str7, str8), myStrstrBMH(str7, str8));
+  myPuts(strtok(str10, ", \n\t"));
+  myPuts(strtok(NULL, ", \n\t"));
+  myPuts(strtok(str11, ", \n\t"));
+  myPuts(strtok(NULL, ", \n\t"));
   return 0;
 }

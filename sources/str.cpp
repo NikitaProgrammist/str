@@ -287,3 +287,24 @@ long long strHash(char * const str, long long randomnum, long long prime, size_t
   hash = (hash + str[index]) % prime;
   return hash;
 }
+
+char * myStrtok(char * str, const char * delim) {
+  static char * string = nullptr;
+  static size_t index = 0;
+
+  if (str) {
+    string = str;
+  }
+
+  char * pointer = string + index;
+  while (string[index] != '\0' && myStrchr(delim, string[index])) {
+    index++;
+  }
+
+  if (myStrchr(delim, string[index]) == NULL) {
+    while (myStrchr(delim, string[index]) == NULL) {
+      string[index++] = '\0';
+    }
+  }
+  return pointer;
+}
