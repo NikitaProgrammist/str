@@ -49,8 +49,8 @@ int main() { // TODO split to unit test (use google test if you will have enough
   free(line1);
   free(line2);
   printf("%p %p %p %p\n", strstr(str7, str8), myStrstr(str7, str8), myStrstrRK(str7, str8), myStrstrBMH(str7, str8));
-  myPuts(strtok(str10, ", \n\t"));
-  myPuts(strtok(NULL, ", \n\t"));
+  myPuts(myStrtok(str10, ", \n\t"));
+  myPuts(myStrtok(NULL, ", \n\t"));
   myPuts(strtok(str11, ", \n\t"));
   myPuts(strtok(NULL, ", \n\t"));
   return 0;

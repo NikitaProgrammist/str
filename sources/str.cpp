@@ -22,10 +22,11 @@ int myPuts(const char * string) {
 
 char * myStrchr(const char * string, const int symbol) {
   size_t index = 0;
-  while (string[index++] != '\0') {
+  while (string[index] != '\0') {
     if (symbol == string[index]) {
       return (char *) (string + index);
     }
+    index++;
   }
   return NULL;
 }
@@ -287,7 +288,7 @@ long long strHash(char * const str, long long randomnum, long long prime, size_t
   return hash;
 }
 
-char * myStrtok(char * str, const char * delim) {
+char * myStrtok(char * __restrict str, const char * __restrict delim) {
   static char * string = nullptr;
   static size_t index = 0;
 
@@ -296,12 +297,12 @@ char * myStrtok(char * str, const char * delim) {
   }
 
   char * pointer = string + index;
-  while (string[index] != '\0' && myStrchr(delim, string[index])) {
+  while (string[index] != '\0' && (myStrchr(delim, string[index]) == NULL)) {
     index++;
   }
 
-  if (myStrchr(delim, string[index]) == NULL) {
-    while (myStrchr(delim, string[index]) == NULL) {
+  if (myStrchr(delim, string[index])) {
+    while (myStrchr(delim, string[index])) {
       string[index++] = '\0';
     }
   }
