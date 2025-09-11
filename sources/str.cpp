@@ -36,8 +36,7 @@ int myAtoi(char * string) {
   int sign = 0;
 
   if (string[index] <= '0' || string[index] >= '9') {
-    sign = (string[index] == '-' ? -1 : 1);
-    index++;
+    sign = (string[index++] == '-' ? -1 : 1);
   }
 
   while (string[index] != '\0' && string[index] >= '0' && string[index] <= '9') {
