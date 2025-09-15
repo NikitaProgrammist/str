@@ -36,7 +36,7 @@ int myAtoi(char * string) {
   int num = 0;
   int sign = 0;
 
-  if (string[index] <= '0' || string[index] >= '9') {
+  if (string[index] < '0' || string[index] > '9') {
     sign = (string[index++] == '-' ? -1 : 1);
   }
 
@@ -106,14 +106,13 @@ char * myStrncat(char * dest, const char * src, size_t n) {
 
 char * myFgets(char * string, int size, FILE * stream) {
   int index = 0;
+  char symbol = '\0';
 
-  while (index < size - 1) {
-    string[index] = (char) getc(stream);
-    if (string[index] == '\n' || string[index] == EOF) {
-      index++;
+  while (index < size - 1 && (symbol = (char) getc(stream)) != EOF) {
+    string[index] = symbol;
+    if (string[index++] == '\n') {
       break;
     }
-    index++;
   }
   string[index] = '\0';
 
@@ -165,9 +164,9 @@ size_t myGetline(char ** lineptr, size_t * n, FILE * stream) {
   return *n - 1;
 }
 
-char * myStrstr(char * const haystack, char * const needle) {
+char * myStrstr(const char * haystack, char * const needle) {
   if (needle == NULL) {
-    return haystack;
+    return (char *) haystack;
   }
 
   size_t index = 0;
@@ -180,7 +179,7 @@ char * myStrstr(char * const haystack, char * const needle) {
     }
 
     if (needle[subindex] == '\0') {
-      return haystack + index;
+      return (char *) (haystack + index);
     }
 
     index++;
@@ -189,9 +188,9 @@ char * myStrstr(char * const haystack, char * const needle) {
   return NULL;
 }
 
-char * myStrstrRK(char * const haystack, char * const needle) {
+char * myStrstrRK(const char * haystack, char * const needle) {
   if (needle == NULL) {
-    return haystack;
+    return (char *) haystack;
   }
 
   long long prime = 1 << 31;
@@ -216,7 +215,7 @@ char * myStrstrRK(char * const haystack, char * const needle) {
       }
 
       if (needle[subindex] == '\0') {
-        return haystack + index;
+        return (char *) (haystack + index);
       }
     }
     index++;
@@ -226,9 +225,9 @@ char * myStrstrRK(char * const haystack, char * const needle) {
   return NULL;
 }
 
-char * myStrstrBMH(char * const haystack, char * const needle) {
+char * myStrstrBMH(const char * haystack, char * const needle) {
   if (needle == NULL) {
-    return haystack;
+    return (char *) haystack;
   }
 
   size_t len_substring = myStrlen(needle);
@@ -255,7 +254,7 @@ char * myStrstrBMH(char * const haystack, char * const needle) {
     }
 
     if (subindex == 0) {
-      return haystack + index;
+      return (char *) (haystack + index);
     }
 
     index += symbols[(size_t) haystack[index + subindex - 1]];
@@ -277,7 +276,7 @@ long long myPow(long long randomnum, long long prime, size_t len_substring) {
   return result;
 }
 
-long long strHash(char * const str, long long randomnum, long long prime, size_t len) {
+long long strHash(const char * str, long long randomnum, long long prime, size_t len) {
   size_t index = 0;
   long long hash = 0;
   while (index < len - 1) {
@@ -294,6 +293,7 @@ char * myStrtok(char * __restrict str, const char * __restrict delim) {
 
   if (str) {
     string = str;
+    index = 0;
   }
 
   char * pointer = string + index;

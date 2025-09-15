@@ -14,12 +14,12 @@ char * myStrncat(char * dest, const char * src, size_t n);
 char * myFgets(char * string, int size, FILE * stream);
 char * myStrdup(const char * string);
 size_t myGetline(char ** lineptr, size_t * n, FILE * stream);
-char * myStrstr(char * const haystack, char * const needle);
-char * myStrstrRK(char * const haystack, char * const needle);
-char * myStrstrBMH(char * const haystack, char * const needle);
+char * myStrstr(const char * haystack, char * const needle);
+char * myStrstrRK(const char * haystack, char * const needle);
+char * myStrstrBMH(const char * haystack, char * const needle);
 long long random(long long prime);
 long long myPow(long long randomnum, long long prime, size_t len_substring);
-long long strHash(char * const str, long long randomnum, long long prime, size_t len);
+long long strHash(const char * str, long long randomnum, long long prime, size_t len);
 char * myStrtok(char * __restrict str, const char * __restrict delim);
 
 #endif
