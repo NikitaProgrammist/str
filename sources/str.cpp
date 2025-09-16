@@ -53,6 +53,17 @@ size_t myStrlen(const char * string) {
   return index - 1;
 }
 
+int myStrCmp(const char * str1, const char * str2) {
+  size_t index = 0;
+  while (str1[index] != '\0' && str2[index] != '\0') {
+    if (str1[index] != str2[index]) {
+      return str1[index] - str2[index];
+    }
+    index++;
+  }
+  return 0;
+}
+
 char * myStrcpy(char * dest, const char * src) {
   size_t index = 0;
   while ((dest[index] = src[index]) != '\0') {
