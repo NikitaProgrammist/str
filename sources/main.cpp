@@ -4,6 +4,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include "str.h"
+#include "my_printf.h"
 
 int main() { // TODO split to unit test (use google test if you will have enough times)
   char str[] = "dfsdfsdfsdfs";

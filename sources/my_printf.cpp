@@ -3,9 +3,7 @@
 #include <stdio.h>
 #include <stdarg.h>
 
-#include "solve.h"
 #include "my_printf.h"
-#include "print_errors.h"
 
 /*!
  * @brief форматирует цвет и шрифт вывода
