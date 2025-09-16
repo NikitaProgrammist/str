@@ -22,4 +22,4 @@ long long myPow(long long randomnum, long long prime, size_t len_substring);
 long long strHash(const char * str, long long randomnum, long long prime, size_t len);
 char * myStrtok(char * __restrict str, const char * __restrict delim);
 
-#endif
+#endif // STR_H
