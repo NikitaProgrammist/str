@@ -59,8 +59,8 @@ int myStrCmpStart(const char * str1, const char * str2) {
   while (!isalpha(str1[index1])) index1++;
   while (!isalpha(str2[index2])) index2++;
   while (str1[index1] != '\0' && str2[index2] != '\0' && isalpha(str1[index1]) && isalpha(str2[index2])) {
-    if (str1[index1] != str2[index2]) {
-      return str1[index1] - str2[index2];
+    if (tolower(str1[index1]) != tolower(str2[index2])) {
+      return tolower(str1[index1]) - tolower(str2[index2]);
     }
     index1++;
     index2++;
@@ -75,13 +75,13 @@ int myStrCmpEnd(const char * str1, const char * str2) {
   while (!isalpha(str1[index1])) index1--;
   while (!isalpha(str2[index2])) index2--;
   while (index1 != 0 && index2 != 0) {
-    if (str1[index1] != str2[index2]) {
-      return str1[index1] - str2[index2];
+    if (tolower(str1[index1]) != tolower(str2[index2])) {
+      return tolower(str1[index1]) - tolower(str2[index2]);
     }
     index1++;
     index2++;
   }
-  return str1[0] - str2[0];
+  return to_lower(str1[0]) - to_lower(str2[0]);
 }
 
 char * myStrcpy(char * dest, const char * src) {
