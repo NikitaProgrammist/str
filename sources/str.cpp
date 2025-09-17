@@ -81,7 +81,7 @@ int myStrCmpEnd(const char * str1, const char * str2) {
     index1++;
     index2++;
   }
-  return to_lower(str1[0]) - to_lower(str2[0]);
+  return tolower(str1[0]) - tolower(str2[0]);
 }
 
 char * myStrcpy(char * dest, const char * src) {
