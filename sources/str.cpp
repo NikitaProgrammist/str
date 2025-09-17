@@ -53,15 +53,34 @@ size_t myStrlen(const char * string) {
   return index - 1;
 }
 
-int myStrCmp(const char * str1, const char * str2) {
-  size_t index = 0;
-  while (str1[index] != '\0' && str2[index] != '\0') {
-    if (str1[index] != str2[index]) {
-      return str1[index] - str2[index];
+int myStrCmpStart(const char * str1, const char * str2) {
+  size_t index1 = 0, index2 = 0;
+  while (!isalpha(str1[index1++]));
+  while (!isalpha(str2[index2++]));
+  while (str1[index1] != '\0' && str2[index2] != '\0' && isalpha(str1[index1]) && isalpha(str2[index2])) {
+    if (str1[index1] != str2[index2]) {
+      return str1[index1] - str2[index2];
     }
-    index++;
+    index1++;
+    index2++;
   }
   return 0;
+}
+
+int myStrCmpEnd(const char * str1, const char * str2) {
+  size_t index1 = 0, index2 = 0;
+  while (str1[index1++] != '\0');
+  while (str2[index2++] != '\0');
+  while (!isalpha(str1[index1--]));
+  while (!isalpha(str2[index2--]));
+  while (index1 != 0 && index2 != 0) {
+    if (str1[index1] != str2[index2]) {
+      return str1[index1] - str2[index2];
+    }
+    index1++;
+    index2++;
+  }
+  return str1[0] - str2[0];
 }
 
 char * myStrcpy(char * dest, const char * src) {
