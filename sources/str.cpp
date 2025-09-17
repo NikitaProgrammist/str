@@ -58,7 +58,7 @@ int myStrCmpStart(const char * str1, const char * str2) {
   size_t index1 = 0, index2 = 0;
   while (!isalpha(str1[index1])) index1++;
   while (!isalpha(str2[index2])) index2++;
-  while (str1[index1] != '\0' && str2[index2] != '\0' && isalpha(str1[index1]) && isalpha(str2[index2])) {
+  while (str1[index1] != '\0' && str2[index2] != '\0') {
     if (tolower(str1[index1]) != tolower(str2[index2])) {
       return tolower(str1[index1]) - tolower(str2[index2]);
     }
